@@ -13,7 +13,7 @@
     padding: 20px;
   }
 
-  /* Crafting table start image */
+  /* Crafting table button */
   #craftingTable {
     width: 220px;
     cursor: pointer;
@@ -24,7 +24,7 @@
     transform: scale(1.05);
   }
 
-  /* Crafting screen container */
+  /* Crafting screen */
   #craftingScreen {
     position: relative;
     width: 900px;
@@ -38,50 +38,58 @@
     border-radius: 10px;
   }
 
-  /* Mask overlays (hide items) */
+  /* Mask overlays */
   .mask {
     position: absolute;
-    width: 90px;
-    height: 90px;
-    background: #bdbdbd; /* matches Minecraft UI */
-    border-radius: 6px;
+    width: 100px;
+    height: 100px;
+    background: #bcbcbc;
+    border-radius: 8px;
     cursor: pointer;
   }
 
-  /* SLOT POSITIONS */
-  .m1 { top: 135px; left: 95px; }
-  .m2 { top: 135px; left: 195px; }
-  .m3 { top: 135px; left: 295px; }
+  .mask:hover {
+    background: #a5a5a5;
+  }
 
-  .m4 { top: 235px; left: 95px; }
-  .m5 { top: 235px; left: 195px; }
+  /* CRAFTING GRID MASKS */
+  .m1 { top: 130px; left: 85px; }
+  .m2 { top: 130px; left: 190px; }
+  .m3 { top: 130px; left: 295px; }
+
+  .m4 { top: 235px; left: 85px; }
+  .m5 { top: 235px; left: 190px; }
   .m6 { top: 235px; left: 295px; }
 
-  .m7 { top: 335px; left: 95px; }
-  .m8 { top: 335px; left: 195px; }
-  .m9 { top: 335px; left: 295px; }
+  .m7 { top: 340px; left: 85px; }
+  .m8 { top: 340px; left: 190px; }
+  .m9 { top: 340px; left: 295px; }
 
-  .mask:hover {
-    background: #a0a0a0;
+  /* RESULT SLOT MASK (10th) */
+  .m10 {
+    top: 210px;
+    left: 610px;
+    width: 140px;
+    height: 140px;
   }
 </style>
 </head>
 
 <body>
 
-<!-- CRAFTING TABLE CLICK -->
+<!-- START -->
 <img
   id="craftingTable"
-  src="crafting-table.png"
+  src="crafting-table.jpg"
   alt="Crafting Table"
   onclick="openCrafting()"
 />
 
-<!-- CRAFTING IMAGE -->
+<!-- CRAFTING -->
 <div id="craftingScreen">
   <img src="crafting.jpg" alt="Crafting">
 
-  <!-- MASKS -->
+  <!-- GRID MASKS -->
   <div class="mask m1" onclick="reveal(this)"></div>
   <div class="mask m2" onclick="reveal(this)"></div>
   <div class="mask m3" onclick="reveal(this)"></div>
@@ -93,6 +101,9 @@
   <div class="mask m7" onclick="reveal(this)"></div>
   <div class="mask m8" onclick="reveal(this)"></div>
   <div class="mask m9" onclick="reveal(this)"></div>
+
+  <!-- FINAL RESULT MASK -->
+  <div class="mask m10" onclick="reveal(this)"></div>
 </div>
 
 <script>
