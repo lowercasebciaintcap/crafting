@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Love Crafting 💕</title>
+
+<style>
+  body {
+    background: #f2f2f2;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+
+  /* Crafting table start image */
+  #craftingTable {
+    width: 220px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  #craftingTable:hover {
+    transform: scale(1.05);
+  }
+
+  /* Crafting screen container */
+  #craftingScreen {
+    position: relative;
+    width: 900px;
+    max-width: 95%;
+    margin: 30px auto;
+    display: none;
+  }
+
+  #craftingScreen img {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  /* Mask overlays (hide items) */
+  .mask {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background: #bdbdbd; /* matches Minecraft UI */
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  /* SLOT POSITIONS */
+  .m1 { top: 135px; left: 95px; }
+  .m2 { top: 135px; left: 195px; }
+  .m3 { top: 135px; left: 295px; }
+
+  .m4 { top: 235px; left: 95px; }
+  .m5 { top: 235px; left: 195px; }
+  .m6 { top: 235px; left: 295px; }
+
+  .m7 { top: 335px; left: 95px; }
+  .m8 { top: 335px; left: 195px; }
+  .m9 { top: 335px; left: 295px; }
+
+  .mask:hover {
+    background: #a0a0a0;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- CRAFTING TABLE CLICK -->
+<img
+  id="craftingTable"
+  src="crafting-table.png"
+  alt="Crafting Table"
+  onclick="openCrafting()"
+/>
+
+<!-- CRAFTING IMAGE -->
+<div id="craftingScreen">
+  <img src="crafting.jpg" alt="Crafting">
+
+  <!-- MASKS -->
+  <div class="mask m1" onclick="reveal(this)"></div>
+  <div class="mask m2" onclick="reveal(this)"></div>
+  <div class="mask m3" onclick="reveal(this)"></div>
+
+  <div class="mask m4" onclick="reveal(this)"></div>
+  <div class="mask m5" onclick="reveal(this)"></div>
+  <div class="mask m6" onclick="reveal(this)"></div>
+
+  <div class="mask m7" onclick="reveal(this)"></div>
+  <div class="mask m8" onclick="reveal(this)"></div>
+  <div class="mask m9" onclick="reveal(this)"></div>
+</div>
+
+<script>
+  function openCrafting() {
+    document.getElementById("craftingTable").style.display = "none";
+    document.getElementById("craftingScreen").style.display = "block";
+  }
+
+  function reveal(mask) {
+    mask.style.display = "none";
+  }
+</script>
+
+</body>
+</html>
