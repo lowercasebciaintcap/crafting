@@ -2,143 +2,63 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Love Crafting 💗</title>
+<title>Love Crafting 💕</title>
 <style>
   body {
-    background: #eee;
-    font-family: Arial, sans-serif;
+    background: #f2f2f2;
     text-align: center;
-    padding: 30px;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
   }
 
-  .crafting-wrapper {
-    position: relative;
-    display: inline-block;
-  }
-
-  .crafting-bg {
-    width: 900px;
-    max-width: 100%;
-    display: block;
-  }
-
-  /* fog overlay */
-  .fog {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 900px;
-    max-width: 100%;
-    height: 100%;
-    background: rgba(200, 200, 200, 0.9);
-    pointer-events: none; /* clicks pass through except squares */
-    border-radius: 8px;
-  }
-
-  /* Grid for click areas */
-  .grid {
-    position: absolute;
-    top: 130px;
-    left: 105px;
-    width: 360px;
-    height: 360px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 8px;
-    pointer-events: auto; /* allow clicks */
-  }
-
-  .cell {
-    background: transparent;
+  /* Crafting table button */
+  #craftingTable {
+    width: 300px; /* made bigger */
+    max-width: 80%;
     cursor: pointer;
+    transition: transform 0.3s;
+    border-radius: 10px;
+  }
+
+  #craftingTable:hover {
+    transform: scale(1.05);
+  }
+
+  /* Crafting screen */
+  #craftingScreen {
     position: relative;
+    width: 1200px; /* bigger crafting image */
+    max-width: 95%;
+    margin: 30px auto;
+    display: none;
   }
 
-  /* spotlight effect */
-  .spotlight {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    background: rgba(0,0,0,0.0);
-    box-shadow: 0 0 0 1000px rgba(200,200,200,0.9);
-    transition: all 0.4s ease;
-  }
-
-  .sparkle {
-    position: absolute;
-    font-size: 1.5em;
-    animation: sparkle 1s ease-out forwards;
-    pointer-events: none;
-  }
-
-  @keyframes sparkle {
-    from { opacity: 1; transform: scale(0.5); }
-    to { opacity: 0; transform: scale(1.5) translateY(-30px); }
+  #craftingScreen img {
+    width: 100%;
+    border-radius: 12px;
   }
 </style>
 </head>
 <body>
 
-<div class="crafting-wrapper">
-  <img src="crafting.jpg" class="crafting-bg" alt="Crafting Background">
+<!-- START -->
+<img id="craftingTable" src="crafting-table.jpg" alt="Crafting Table" onclick="openCrafting()" />
 
-  <div class="fog" id="fog"></div>
-
-  <!-- Clickable grid -->
-  <div class="grid" id="grid">
-    <div class="cell" onclick="revealSpot(this)"></div>
-    <div class="cell" onclick="revealSpot(this)"></div>
-    <div class="cell" onclick="revealSpot(this)"></div>
-    <div class="cell" onclick="revealSpot(this)"></div>
-    <div class="cell" onclick="revealSpot(this)"></div>
-    <div class="cell" onclick="revealSpot(this)"></div>
-    <div class="cell" onclick="revealSpot(this)"></div>
-    <div class="cell" onclick="revealSpot(this)"></div>
-    <div class="cell" onclick="revealSpot(this)"></div>
-  </div>
+<!-- CRAFTING SCREEN -->
+<div id="craftingScreen">
+  <img src="crafting.jpg" alt="Crafting Table Big">
 </div>
 
+<!-- MUSIC -->
 <audio id="music" src="lana.mp3" loop></audio>
 
 <script>
-  let count = 0;
-  let started = false;
-
-  function revealSpot(cell) {
-    if (!started) {
-      document.getElementById("music").play();
-      started = true;
-    }
-
-    // get the cell position
-    const rect = cell.getBoundingClientRect();
-    const parentRect = cell.parentElement.getBoundingClientRect();
-
-    const spotlight = document.createElement("div");
-    spotlight.className = "spotlight";
-
-    // position relative to parent grid
-    spotlight.style.width = rect.width + "px";
-    spotlight.style.height = rect.height + "px";
-    spotlight.style.left = (rect.left - parentRect.left) + "px";
-    spotlight.style.top = (rect.top - parentRect.top) + "px";
-
-    document.getElementById("fog").appendChild(spotlight);
-    sparkle(spotlight);
-
-    count++;
-  }
-
-  function sparkle(el) {
-    const s = document.createElement("div");
-    s.className = "sparkle";
-    s.textContent = "✨";
-    s.style.left = "50%";
-    s.style.top = "50%";
-    el.appendChild(s);
-    setTimeout(() => s.remove(), 1000);
-  }
+function openCrafting() {
+  document.getElementById("craftingTable").style.display = "none";
+  document.getElementById("craftingScreen").style.display = "block";
+  document.getElementById("music").play();
+}
 </script>
 
 </body>
