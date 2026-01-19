@@ -6,22 +6,48 @@
 
 <style>
   body {
-    background: #f2f2f2;
+    background: #ffffff;
     text-align: center;
-    font-family: Arial, sans-serif;
+    font-family: "Comic Sans MS", Arial, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 30px;
   }
 
-  /* Crafting table button */
+  /* BIG crafting table button */
   #craftingTable {
-    width: 220px;
+    width: 420px;
+    max-width: 90%;
     cursor: pointer;
     transition: transform 0.3s;
   }
 
   #craftingTable:hover {
-    transform: scale(1.05);
+    transform: scale(1.08);
+  }
+
+  /* Instruction bubble */
+  #bubble {
+    display: none;
+    background: #ffe1ef;
+    color: #b3005e;
+    padding: 15px 22px;
+    border-radius: 20px;
+    margin: 20px auto;
+    width: fit-content;
+    box-shadow: 0 6px 15px rgba(255,105,180,0.3);
+    font-size: 1.05em;
+    position: relative;
+  }
+
+  #bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 12px 12px 0;
+    border-style: solid;
+    border-color: #ffe1ef transparent transparent;
   }
 
   /* Crafting screen */
@@ -29,48 +55,50 @@
     position: relative;
     width: 900px;
     max-width: 95%;
-    margin: 30px auto;
+    margin: 25px auto;
     display: none;
   }
 
   #craftingScreen img {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 12px;
   }
 
-  /* Mask overlays */
+  /* Mask overlays — BIGGER */
   .mask {
     position: absolute;
-    width: 100px;
-    height: 100px;
-    background: #bcbcbc;
-    border-radius: 8px;
+    width: 130px;
+    height: 130px;
+    background: #cfcfcf;
+    border-radius: 10px;
     cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
   }
 
   .mask:hover {
-    background: #a5a5a5;
+    background: #b8b8b8;
+    transform: scale(1.03);
   }
 
-  /* CRAFTING GRID MASKS */
-  .m1 { top: 130px; left: 85px; }
-  .m2 { top: 130px; left: 190px; }
-  .m3 { top: 130px; left: 295px; }
+  /* GRID MASK POSITIONS */
+  .m1 { top: 135px; left: 90px; }
+  .m2 { top: 135px; left: 225px; }
+  .m3 { top: 135px; left: 360px; }
 
-  .m4 { top: 235px; left: 85px; }
-  .m5 { top: 235px; left: 190px; }
-  .m6 { top: 235px; left: 295px; }
+  .m4 { top: 270px; left: 90px; }
+  .m5 { top: 270px; left: 225px; }
+  .m6 { top: 270px; left: 360px; }
 
-  .m7 { top: 340px; left: 85px; }
-  .m8 { top: 340px; left: 190px; }
-  .m9 { top: 340px; left: 295px; }
+  .m7 { top: 405px; left: 90px; }
+  .m8 { top: 405px; left: 225px; }
+  .m9 { top: 405px; left: 360px; }
 
-  /* RESULT SLOT MASK (10th) */
+  /* RESULT SLOT */
   .m10 {
-    top: 210px;
-    left: 610px;
-    width: 140px;
-    height: 140px;
+    top: 265px;
+    left: 620px;
+    width: 170px;
+    height: 170px;
   }
 </style>
 </head>
@@ -84,6 +112,10 @@
   alt="Crafting Table"
   onclick="openCrafting()"
 />
+
+<div id="bubble">
+  click each square to craft our picture 💗
+</div>
 
 <!-- CRAFTING -->
 <div id="craftingScreen">
@@ -102,18 +134,29 @@
   <div class="mask m8" onclick="reveal(this)"></div>
   <div class="mask m9" onclick="reveal(this)"></div>
 
-  <!-- FINAL RESULT MASK -->
+  <!-- FINAL RESULT -->
   <div class="mask m10" onclick="reveal(this)"></div>
 </div>
 
+<!-- AUDIO -->
+<audio id="lanaMusic" src="lana.mp3" loop></audio>
+
 <script>
+  let musicStarted = false;
+
   function openCrafting() {
     document.getElementById("craftingTable").style.display = "none";
     document.getElementById("craftingScreen").style.display = "block";
+    document.getElementById("bubble").style.display = "block";
   }
 
   function reveal(mask) {
     mask.style.display = "none";
+
+    if (!musicStarted) {
+      document.getElementById("lanaMusic").play();
+      musicStarted = true;
+    }
   }
 </script>
 
