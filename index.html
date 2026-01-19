@@ -6,106 +6,119 @@
 
 <style>
   body {
-    background: #ffffff;
+    background: #f2f2f2;
     text-align: center;
     font-family: "Comic Sans MS", Arial, sans-serif;
     margin: 0;
-    padding: 30px;
+    padding: 20px;
   }
 
-  /* BIG crafting table button */
+  /* Crafting table button */
   #craftingTable {
-    width: 420px;
-    max-width: 90%;
+    width: 380px;
     cursor: pointer;
     transition: transform 0.3s;
   }
 
   #craftingTable:hover {
-    transform: scale(1.08);
-  }
-
-  /* Instruction bubble */
-  #bubble {
-    display: none;
-    background: #ffe1ef;
-    color: #b3005e;
-    padding: 15px 22px;
-    border-radius: 20px;
-    margin: 20px auto;
-    width: fit-content;
-    box-shadow: 0 6px 15px rgba(255,105,180,0.3);
-    font-size: 1.05em;
-    position: relative;
-  }
-
-  #bubble::after {
-    content: "";
-    position: absolute;
-    bottom: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 12px 12px 0;
-    border-style: solid;
-    border-color: #ffe1ef transparent transparent;
+    transform: scale(1.05);
   }
 
   /* Crafting screen */
   #craftingScreen {
     position: relative;
-    width: 900px;
-    max-width: 95%;
-    margin: 25px auto;
+    width: 960px;
+    height: 540px;
+    margin: 40px auto;
     display: none;
   }
 
   #craftingScreen img {
     width: 100%;
+    height: 100%;
     border-radius: 12px;
   }
 
-  /* Mask overlays — BIGGER */
+  /* Instruction bubble */
+  #bubble {
+    position: absolute;
+    top: -55px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffd6eb;
+    padding: 12px 22px;
+    border-radius: 25px;
+    font-size: 1em;
+    color: #b3005e;
+    box-shadow: 0 6px 15px rgba(255,105,180,0.35);
+  }
+
+  /* Masks */
   .mask {
     position: absolute;
-    width: 130px;
-    height: 130px;
-    background: #cfcfcf;
-    border-radius: 10px;
+    width: 115px;
+    height: 115px;
+    background: #d8d8d8;
+    border-radius: 14px;
     cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
+    transition: opacity 0.3s;
   }
 
   .mask:hover {
-    background: #b8b8b8;
-    transform: scale(1.03);
+    background: #c6c6c6;
   }
 
-  /* GRID MASK POSITIONS */
-  .m1 { top: 135px; left: 90px; }
-  .m2 { top: 135px; left: 225px; }
-  .m3 { top: 135px; left: 360px; }
+  /* Grid masks */
+  .m1 { top: 150px; left: 110px; }
+  .m2 { top: 150px; left: 235px; }
+  .m3 { top: 150px; left: 360px; }
 
-  .m4 { top: 270px; left: 90px; }
-  .m5 { top: 270px; left: 225px; }
-  .m6 { top: 270px; left: 360px; }
+  .m4 { top: 275px; left: 110px; }
+  .m5 { top: 275px; left: 235px; }
+  .m6 { top: 275px; left: 360px; }
 
-  .m7 { top: 405px; left: 90px; }
-  .m8 { top: 405px; left: 225px; }
-  .m9 { top: 405px; left: 360px; }
+  .m7 { top: 400px; left: 110px; }
+  .m8 { top: 400px; left: 235px; }
+  .m9 { top: 400px; left: 360px; }
 
-  /* RESULT SLOT */
+  /* Result slot */
   .m10 {
-    top: 265px;
-    left: 620px;
-    width: 170px;
-    height: 170px;
+    top: 260px;
+    left: 655px;
+    width: 135px;
+    height: 135px;
+    border-radius: 18px;
+  }
+
+  /* Glow pulse */
+  .glow {
+    animation: glowPulse 1.5s infinite;
+  }
+
+  @keyframes glowPulse {
+    0% { box-shadow: 0 0 0 rgba(255,105,180,0.6); }
+    50% { box-shadow: 0 0 25px rgba(255,105,180,0.9); }
+    100% { box-shadow: 0 0 0 rgba(255,105,180,0.6); }
+  }
+
+  /* Sparkles */
+  .sparkle {
+    position: absolute;
+    font-size: 1.5em;
+    animation: sparkle 1.2s ease-out forwards;
+    pointer-events: none;
+  }
+
+  @keyframes sparkle {
+    0% { opacity: 1; transform: scale(0.5) translateY(0); }
+    100% { opacity: 0; transform: scale(1.4) translateY(-40px); }
   }
 </style>
 </head>
 
 <body>
 
-<!-- START -->
+<!-- Crafting Table Button -->
 <img
   id="craftingTable"
   src="crafting-table.jpg"
@@ -113,15 +126,13 @@
   onclick="openCrafting()"
 />
 
-<div id="bubble">
-  click each square to craft our picture 💗
-</div>
-
-<!-- CRAFTING -->
+<!-- Crafting Screen -->
 <div id="craftingScreen">
+  <div id="bubble">click each square to craft our picture 💗</div>
+
   <img src="crafting.jpg" alt="Crafting">
 
-  <!-- GRID MASKS -->
+  <!-- Masks -->
   <div class="mask m1" onclick="reveal(this)"></div>
   <div class="mask m2" onclick="reveal(this)"></div>
   <div class="mask m3" onclick="reveal(this)"></div>
@@ -134,28 +145,57 @@
   <div class="mask m8" onclick="reveal(this)"></div>
   <div class="mask m9" onclick="reveal(this)"></div>
 
-  <!-- FINAL RESULT -->
-  <div class="mask m10" onclick="reveal(this)"></div>
+  <div class="mask m10" id="resultMask" onclick="reveal(this)"></div>
 </div>
 
-<!-- AUDIO -->
+<!-- Music -->
 <audio id="lanaMusic" src="lana.mp3" loop></audio>
 
 <script>
+  let revealed = 0;
   let musicStarted = false;
 
   function openCrafting() {
     document.getElementById("craftingTable").style.display = "none";
     document.getElementById("craftingScreen").style.display = "block";
-    document.getElementById("bubble").style.display = "block";
   }
 
   function reveal(mask) {
-    mask.style.display = "none";
-
     if (!musicStarted) {
       document.getElementById("lanaMusic").play();
       musicStarted = true;
+    }
+
+    mask.style.display = "none";
+    revealed++;
+
+    createSparkle(mask.offsetLeft + 50, mask.offsetTop + 50);
+
+    if (revealed === 10) {
+      document.getElementById("resultMask").classList.add("glow");
+      burstSparkles();
+    }
+  }
+
+  function createSparkle(x, y) {
+    const sparkle = document.createElement("div");
+    sparkle.className = "sparkle";
+    sparkle.style.left = x + "px";
+    sparkle.style.top = y + "px";
+    sparkle.textContent = "✨";
+    document.getElementById("craftingScreen").appendChild(sparkle);
+
+    setTimeout(() => sparkle.remove(), 1200);
+  }
+
+  function burstSparkles() {
+    for (let i = 0; i < 12; i++) {
+      setTimeout(() => {
+        createSparkle(
+          680 + Math.random() * 80,
+          280 + Math.random() * 80
+        );
+      }, i * 100);
     }
   }
 </script>
